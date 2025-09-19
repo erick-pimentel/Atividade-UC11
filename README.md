@@ -5,4 +5,5 @@ Ele foi disponibilizado como material complementar para fins de estudo e prátic
 
 ## Tecnologias utilizadas
 - Java
+- MySQL
 - Git/GitHub
