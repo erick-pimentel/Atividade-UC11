@@ -4,5 +4,5 @@ Este projeto é um sistema de gerenciamento que utiliza banco de dados para arma
 Ele foi disponibilizado como material complementar para fins de estudo e prática de versionamento, banco de dados e integração com repositórios remotos.
 
 ## Tecnologias utilizadas
-- MySQL  
+- Java
 - Git/GitHub
