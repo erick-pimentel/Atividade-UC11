@@ -141,17 +141,57 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        String id = id_produto_venda.getText();
+        try {
+            String id = id_produto_venda.getText();
+            
+            ProdutosDAO produtosdao = new ProdutosDAO();
         
-        ProdutosDAO produtosdao = new ProdutosDAO();
-        
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+            produtosdao.venderProduto(Integer.parseInt(id));
+            listarProdutos();
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Digite um ID válido!");
+        } 
     }//GEN-LAST:event_btnVenderActionPerformed
 
+    private boolean mostrandoVendidos = false;
+    
+    private void listarProdutosVendidos() {
+    try {
+        ProdutosDAO produtosdao = new ProdutosDAO();
+        
+        DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
+        model.setNumRows(0);
+        
+        ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutosVendidos();
+        
+        for (int i = 0; i < listagem.size(); i++) {
+            model.addRow(new Object[]{
+                listagem.get(i).getId(),
+                listagem.get(i).getNome(),
+                listagem.get(i).getValor(),
+                listagem.get(i).getStatus()
+            });
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
         //vendasVIEW vendas = new vendasVIEW(); 
         //vendas.setVisible(true);
+        if (mostrandoVendidos) {
+        
+            listarProdutos();
+            btnVendas.setText("Consultar Vendas"); 
+            mostrandoVendidos = false;
+            
+        } else {
+        
+            listarProdutosVendidos();
+            btnVendas.setText("Mostrar Todos"); 
+            mostrandoVendidos = true;
+        }
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
